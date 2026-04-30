@@ -1,0 +1,21 @@
+services:
+  db:
+    container_name: "postgres-database"
+    image: postgres:18.3
+    restart: always
+    environment:
+      POSTGRES_DB: shop
+      POSTGRES_USER: admin
+      POSTGRES_PASSWORD: admin
+    volumes:
+      # 1. Initialization: Runs once when the DB is first created
+      - ./sql/init.sql:/docker-entrypoint-initdb.d/init.sql
+      # 2. Reference: Makes your queries accessible inside the container
+      - ./queries/queries.sql:/home/queries.sql
+      # 3. Persistence: Keeps your table data safe
+      - postgres_data:/var/lib/postgresql
+    ports:
+      - "5432:5432"
+
+volumes:
+  postgres_data:
