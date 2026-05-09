@@ -4,11 +4,11 @@ EXPLAIN (ANALYZE, BUFFERS)
 SELECT *
 FROM users
 WHERE status = 'active'
-  AND created_at > now() - interval '1 day';
+    AND created_at > now() - interval '1 day';
 -- Get users and their orders for users that are active
 SELECT 'Second Query, test Joins: Nested Loop Join, Hash Join, Merge Join';
 EXPLAIN (ANALYZE, BUFFERS)
 SELECT *
 FROM users u
-  JOIN orders o ON u.id = o.user_id
+    JOIN orders o ON u.id = o.user_id
 WHERE u.status = 'active';
